@@ -2,19 +2,29 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
 	"helloworld/service"
+
+	"github.com/gin-gonic/gin"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	userData := getUser()
-	fmt.Fprintf(w, "Hello, Web!"+userData.Username)
-}
-
 func main() {
-	http.HandleFunc("/", handler)
-	http.ListenAndServe(":8080", nil)
+	fmt.Print("Program started...")
+	router := gin.Default()
+	// Define your routes and handlers here
+
+	// Example route handler for the GET method
+	router.GET("/hello", func(c *gin.Context) {
+		c.String(200, "Hello, World!")
+	})
+
+	// Example route handler for the POST method
+	router.POST("/submit", func(c *gin.Context) {
+		// Handle the POST request
+	})
+
+	// Run the server on a specific address and port
+	router.Run(":8080")
 }
 
 func getUser() service.User {
